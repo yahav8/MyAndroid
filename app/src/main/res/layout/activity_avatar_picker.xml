@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="בחר אוואטר"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"/>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:alignmentMode="alignMargins"
+        android:layout_gravity="center">
+
+        <ImageView android:id="@+id/p5" android:layout_width="140dp" android:layout_height="140dp" android:layout_margin="10dp" android:src="@drawable/p5" android:scaleType="centerCrop" />
+        <ImageView android:id="@+id/p2" android:layout_width="140dp" android:layout_height="140dp" android:layout_margin="10dp" android:src="@drawable/p2" android:scaleType="centerCrop" />
+        <ImageView android:id="@+id/p3" android:layout_width="140dp" android:layout_height="140dp" android:layout_margin="10dp" android:src="@drawable/p3" android:scaleType="centerCrop" />
+        <ImageView android:id="@+id/p4" android:layout_width="140dp" android:layout_height="140dp" android:layout_margin="10dp" android:src="@drawable/p4" android:scaleType="centerCrop" />
+        <ImageView android:id="@+id/p1" android:layout_width="140dp" android:layout_height="140dp" android:layout_margin="10dp" android:src="@drawable/p1" android:scaleType="centerCrop" />
+        <ImageView android:id="@+id/p6" android:layout_width="140dp" android:layout_height="140dp" android:layout_margin="10dp" android:src="@drawable/p6" android:scaleType="centerCrop" />
+        <ImageView android:id="@+id/p7" android:layout_width="140dp" android:layout_height="140dp" android:layout_margin="10dp" android:src="@drawable/p7" android:scaleType="centerCrop" />
+        <ImageView android:id="@+id/p8" android:layout_width="140dp" android:layout_height="140dp" android:layout_margin="10dp" android:src="@drawable/p8" android:scaleType="centerCrop" />
+
+    </GridLayout>
+</LinearLayout>

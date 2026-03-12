@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#D1E9FF"
+    android:layoutDirection="rtl">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_create"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#5B93FF">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="יצירת פוסט חדש"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/iv_new_post_image"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:background="#FFFFFF"
+                android:src="@android:drawable/ic_menu_camera"
+                android:padding="10dp"
+                android:layout_marginBottom="20dp"/>
+
+            <EditText
+                android:id="@+id/et_post_headline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="כותרת הפוסט"
+                android:background="@android:color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="15dp"
+                android:inputType="textCapSentences"/>
+
+            <EditText
+                android:id="@+id/et_post_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minLines="5"
+                android:gravity="top"
+                android:hint="מה תרצה לשתף?"
+                android:background="@android:color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="15dp"
+                android:inputType="textMultiLine"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="20dp">
+
+                <Button
+                    android:id="@+id/btn_ai_hashtags"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="צור תגיות (AI)"
+                    android:backgroundTint="#8A8A8A"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/tv_ai_tags_display"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp"
+                    android:text=""
+                    android:textColor="#5B93FF"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:hint="התגיות יופיעו כאן..." />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_upload_post"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:backgroundTint="#5B93FF"
+                android:text="פרסם פוסט"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

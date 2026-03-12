@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layoutDirection="rtl"
+    tools:context=".PreferredSettingsP"> <androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@color/base1"
+    android:layout_marginBottom="16dp"
+    app:navigationIcon="@android:drawable/ic_menu_revert"
+    app:contentInsetStart="0dp"
+    app:contentInsetEnd="0dp"
+    android:layoutDirection="ltr" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.MyApp.Title"
+                android:text="הגדרות תצוגה כלליות"
+                android:textSize="22sp"
+                android:layout_marginBottom="16dp" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/swDarkMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="מצב כהה (Dark Mode)"
+                style="@style/TextAppearance.MyApp.RegularText"
+                android:padding="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="גודל טקסט באפליקציה:"
+                style="@style/TextAppearance.MyApp.RegularText"
+                android:layout_marginTop="16dp" />
+
+            <RadioGroup
+                android:id="@+id/rgAppTextSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+                <RadioButton android:id="@+id/rbSmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="קטן" android:layout_weight="1"/>
+                <RadioButton android:id="@+id/rbMedium" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="בינוני" android:checked="true" android:layout_weight="1"/>
+                <RadioButton android:id="@+id/rbLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="גדול" android:layout_weight="1"/>
+            </RadioGroup>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#DDDDDD"
+                android:layout_marginVertical="24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.MyApp.Title"
+                android:text="הגדרות פוסט"
+                android:textSize="22sp"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="תצוגה מקדימה של הפוסט:"
+                style="@style/TextAppearance.MyApp.RegularText"
+                android:textSize="14sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="8dp"
+                android:background="#F5F5F5"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/tvPostPreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="תכתבו משהו מעניין!"
+                    android:gravity="right"
+                    android:textSize="18sp"
+                    android:textColor="#000000" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvPostSizeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="גודל גופן בפוסט: 18"
+                style="@style/TextAppearance.MyApp.RegularText"
+                android:layout_marginTop="20dp" />
+
+            <SeekBar
+                android:id="@+id/sbPostTextSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:min="12"
+                android:max="28"
+                android:progress="18"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="בחר סגנון פונט:"
+                style="@style/TextAppearance.MyApp.RegularText"
+                android:layout_marginTop="16dp" />
+
+            <Spinner
+                android:id="@+id/spFontType"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:drawable/btn_dropdown" />
+
+            <Button
+                android:id="@+id/btnPickColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                style="@style/Widget.MyApp.Button"
+                android:text="בחר צבע לטקסט הפוסט" />
+
+            <Button
+                android:id="@+id/btnSaveSettings"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/base1"
+                android:text="שמור את כל ההגדרות"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+        <View
+            android:id="@+id/bottomSeparator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/base1" />
+        <TextView
+            android:id="@+id/tvFooter"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:text="© מערך הבקרים 2026"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:background="#2B3149"
+            android:gravity="center"
+            android:layout_gravity="center" />
+        <ImageView
+            android:id="@+id/ivWifi"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/wifi"
+            app:tint="@android:color/white"/>
+    </FrameLayout>
+</LinearLayout>

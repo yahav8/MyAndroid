@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/base5"
+    tools:context=".Profile">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/base1"
+        app:navigationIcon="@android:drawable/ic_menu_revert"
+        android:layoutDirection="ltr" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp">
+
+                <LinearLayout
+                    android:id="@+id/infoBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="65dp"
+                    android:background="@color/base3"
+                    android:orientation="vertical"
+                    android:paddingTop="75dp"
+                    android:paddingBottom="20dp"
+                    android:paddingHorizontal="16dp"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/profName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="טוען שם..."
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_dark"
+                        android:layout_marginBottom="15dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="end">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="קורס:" android:textStyle="bold"/>
+                            <TextView android:id="@+id/profCourse" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:layout_marginBottom="8dp"/>
+
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="דרגה:" android:textStyle="bold"/>
+                            <TextView android:id="@+id/profRank" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="end">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ת.ז:" android:textStyle="bold"/>
+                            <TextView android:id="@+id/profId" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:layout_marginBottom="8dp"/>
+
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="טלפון:" android:textStyle="bold"/>
+                            <TextView android:id="@+id/profPhone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:layout_marginBottom="8dp"/>
+
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="מייל:" android:textStyle="bold"/>
+                            <TextView android:id="@+id/profEmail" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:layout_marginBottom="8dp"/>
+
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="שחרור:" android:textStyle="bold"/>
+                            <TextView android:id="@+id/profDate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/profImage"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:layout_centerHorizontal="true"
+                    android:elevation="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/p1" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="הפוסטים שלי"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="16dp"
+                android:textColor="@color/primary_dark"/>
+
+            <LinearLayout
+                android:id="@+id/postsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+        <View android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/base1" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:text="© מערך הבקרים 2026"
+            android:textColor="#FFFFFF"
+            android:background="#2B3149"
+            android:gravity="center"
+            android:layout_gravity="center" />
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/wifi"
+            app:tint="@android:color/white"/>
+    </FrameLayout>
+</LinearLayout>

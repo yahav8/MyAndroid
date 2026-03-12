@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_dark">#0D47A1</color>
+
+    <color name="base1">#3F72AF</color>
+    <color name="base2">#5A92D1</color>
+    <color name="base3">#8DBFF7</color>
+    <color name="base4">#D3E5FF</color>
+    <color name="base5">#F0F8FF</color>
+
+    <color name="highlight_bg">#B8D9FF</color>
+
+    <color name="text_on_dark">@android:color/white</color>
+</resources>

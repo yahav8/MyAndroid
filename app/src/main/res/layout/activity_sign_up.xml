@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Start.SignUp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/base1"
+        android:layout_marginBottom="16dp"
+        app:navigationIcon="@android:drawable/ic_menu_revert"
+        app:contentInsetStart="0dp"
+        app:contentInsetEnd="0dp"
+        android:layoutDirection="ltr" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/titleText"
+                style="@style/TextAppearance.MyApp.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="24dp"
+                android:text="הרשמה"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <EditText android:id="@+id/nameInput" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginTop="8dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="שם מלא" android:gravity="right|center_vertical" android:padding="12dp" android:textSize="14sp" />
+            <EditText android:id="@+id/idInput" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="תעודת זהות" android:inputType="number" android:gravity="right|center_vertical" android:padding="12dp" android:textSize="14sp" />
+            <EditText android:id="@+id/emailInput" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="אימייל" android:inputType="textEmailAddress" android:gravity="right|center_vertical" android:padding="12dp" android:textSize="14sp" />
+            <EditText android:id="@+id/phoneInput" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="מספר טלפון" android:inputType="number" android:gravity="right|center_vertical" android:padding="12dp" android:textSize="14sp" />
+            <EditText android:id="@+id/rankInput" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="דרגה" android:gravity="right|center_vertical" android:padding="12dp" android:textSize="14sp" android:focusable="false" android:clickable="true" android:cursorVisible="false" />
+            <EditText android:id="@+id/courseInput" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="קורס" android:gravity="right|center_vertical" android:padding="12dp" android:textSize="14sp" />
+            <EditText android:id="@+id/releaseDateInput" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:focusable="false" android:clickable="true" android:cursorVisible="false" android:hint="תאריך שחרור" android:gravity="right|center_vertical" android:padding="12dp" android:textSize="14sp" />
+            <EditText android:id="@+id/passwordInput" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginBottom="16dp" android:background="@android:drawable/edit_text" android:hint="סיסמה" android:inputType="textPassword" android:gravity="right|center_vertical" android:padding="12dp" android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/uploadText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="אנא בחר אוואטר אישי"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/uploadImagePlaceholder"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="#DDDDDD"
+                    android:padding="4dp"
+                    android:src="@drawable/p1" />
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:minHeight="40dp" />
+
+            <Button android:id="@+id/registerButton" style="@style/Widget.MyApp.Button" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginBottom="14dp" android:text="הרשמה" android:textColor="@android:color/white" android:textSize="16sp" />
+            <Button android:id="@+id/btnGoToLogIn" android:layout_width="wrap_content" android:layout_height="48dp" android:layout_gravity="center_horizontal" android:layout_marginBottom="20dp" android:backgroundTint="@android:color/transparent" android:text="יש לכם משתמש? התחברו" android:textColor="@android:color/holo_blue_dark" android:textSize="12sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout android:layout_width="match_parent" android:layout_height="70dp">
+        <View android:id="@+id/bottomSeparator" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/base1" />
+        <TextView android:id="@+id/tvFooter" android:layout_width="match_parent" android:layout_height="38dp" android:layout_gravity="center" android:background="#2B3149" android:gravity="center" android:text="© מערך הבקרים 2026" android:textColor="@android:color/white" android:textSize="12sp" />
+        <ImageView android:id="@+id/ivWifi" android:layout_width="28dp" android:layout_height="28dp" android:layout_gravity="bottom|right" android:layout_marginEnd="16dp" android:layout_marginBottom="20dp" android:src="@drawable/wifi" app:tint="@android:color/white" />
+    </FrameLayout>
+
+</LinearLayout>

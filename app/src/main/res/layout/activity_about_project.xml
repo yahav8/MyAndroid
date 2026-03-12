@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/aboutProject"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layoutDirection="rtl"
+    tools:context=".Start.AboutProject">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/base1"
+        android:layout_marginBottom="16dp"
+        app:navigationIcon="@android:drawable/ic_menu_revert"
+        app:contentInsetStart="0dp"
+        app:contentInsetEnd="0dp"
+        android:layoutDirection="ltr" />
+
+    <TextView
+        android:id="@+id/tvTitleA"
+        style="@style/TextAppearance.MyApp.Title"
+        android:text="אודות פרויקט"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:gravity="right">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="הסבר על הפרויקט: "
+            style="@style/TextAppearance.MyApp.RegularText" />
+        <TextView
+            android:id="@+id/tvProjectDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="&quot;בקרים לדורותיהם&quot; היא פלטפורמה לקהילת הבקרים של צה&quot;ל, בה הם יוכלו לשמור על קשר, לעדכן ולהתעדכן אחד עם השני. כמו כן, יוכלו לנהל את האירועים שלהם מהאפליקציה בצורה טובה יותר מהדרך הקיימת היום (קהילה בווצאפ)."
+            android:lineSpacingExtra="4dp"
+            style="@style/TextAppearance.MyApp.RegularText" />
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+        <View
+            android:id="@+id/bottomSeparator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/base1" />
+
+        <TextView
+            android:id="@+id/tvFooter"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:text="© מערך הבקרים 2026"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:background="#2B3149"
+            android:gravity="center"
+            android:layout_gravity="center" />
+
+        <ImageView
+            android:id="@+id/ivWifi"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/wifi"
+            android:layout_gravity="bottom|right"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="20dp"
+            app:tint="@android:color/white" />
+
+    </FrameLayout>
+</LinearLayout>
