@@ -62,7 +62,8 @@ public class PostItem implements Serializable {
     public void setLikes(int likes) { this.likes = likes; }
     public boolean isEvent() { return isEvent; }
     public void setEvent(boolean event) { isEvent = event; }
-    public String getTextColor() { return textColor; }
+    public String getTextColor() {
+        return textColor; }
     public void setTextColor(String textColor) { this.textColor = textColor; }
     public String getFontType() { return fontType; }
     public void setFontType(String fontType) { this.fontType = fontType; }
