@@ -10,19 +10,20 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
         android:background="@color/base1"
-        android:layout_marginBottom="16dp"
+        style="@style/Widget.AppCompat.Toolbar"
         app:contentInsetStart="0dp"
-        app:contentInsetEnd="0dp"
-        android:layoutDirection="ltr" />
+        app:contentInsetEnd="0dp" />
 
     <LinearLayout
         android:id="@+id/contentContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/tvTitle"
@@ -56,17 +57,19 @@
             <Button
                 android:id="@+id/btnAboutProject"
                 style="@style/Widget.MyApp.Button"
-                android:layout_width="185dp"
+                android:layout_width="0dp"
                 android:layout_height="60dp"
+                android:layout_weight="1"
                 android:text="אודות הפרויקט"
                 android:backgroundTint="@color/base2"
-                android:layout_marginEnd="15dp" />
+                android:layout_marginEnd="8dp" />
 
             <Button
                 android:id="@+id/btnAboutProgrammer"
                 style="@style/Widget.MyApp.Button"
-                android:layout_width="180dp"
+                android:layout_width="0dp"
                 android:layout_height="60dp"
+                android:layout_weight="1"
                 android:text="אודות המתכנת"
                 android:backgroundTint="@color/base2" />
         </LinearLayout>
@@ -76,23 +79,24 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginTop="16dp"
-            android:paddingBottom="24dp">
+            android:layout_marginTop="8dp">
 
             <Button
                 android:id="@+id/btnSignUp"
                 style="@style/Widget.MyApp.Button"
-                android:layout_width="140dp"
+                android:layout_width="0dp"
                 android:layout_height="60dp"
+                android:layout_weight="1"
                 android:text="הרשמה"
                 android:backgroundTint="@color/base2"
-                android:layout_marginEnd="15dp" />
+                android:layout_marginEnd="8dp" />
 
             <Button
                 android:id="@+id/btnLogIn"
                 style="@style/Widget.MyApp.Button"
-                android:layout_width="140dp"
+                android:layout_width="0dp"
                 android:layout_height="60dp"
+                android:layout_weight="1"
                 android:text="התחברות"
                 android:backgroundTint="@color/base2" />
         </LinearLayout>
