@@ -1,5 +1,6 @@
 package com.example.myfinal.PostCode;
 
+import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
@@ -39,29 +40,32 @@ public class PostCreator extends AppCompatActivity {
     private FirebaseAuth auth;
     private SharedPreferences sp;
 
-    // AI Variables using the Java compatibility layer
+    // שם האייקון הנבחר - ברירת מחדל היא נורה
+    private String selectedIconName = "ic_idea";
+
+    // משתני AI
     private GenerativeModelFutures model;
     private final Executor executor = Executors.newSingleThreadExecutor();
 
     private static final String PREF_NAME = "PostDraft";
-    private static final long DRAFT_EXPIRY_MS = 5 * 60 * 1000;
+    // שינוי לשעה אחת (60 דקות * 60 שניות * 1000 מילישניות)
+    private static final long DRAFT_EXPIRY_MS = 60 * 60 * 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_creator);
 
+        // אתחול Firebase ו-SharedPreferences
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         sp = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
 
-        // 1. Initialize the model (Gemini 1.5 Flash is recommended)
-        GenerativeModel gm = FirebaseVertexAI.getInstance()
-                .generativeModel("gemini-1.5-flash");
-
-        // 2. Wrap it for Java ListenableFuture support
+        // הגדרת מודל ה-AI (Gemini)
+        GenerativeModel gm = FirebaseVertexAI.getInstance().generativeModel("gemini-1.5-flash");
         model = GenerativeModelFutures.from(gm);
 
+        // קישור רכיבי העיצוב (IDs)
         etHeadline = findViewById(R.id.et_post_headline);
         etDetails = findViewById(R.id.et_post_details);
         tvAiTagsDisplay = findViewById(R.id.tv_ai_tags_display);
@@ -69,12 +73,30 @@ public class PostCreator extends AppCompatActivity {
         btnAiHashtags = findViewById(R.id.btn_ai_hashtags);
         ivPostImage = findViewById(R.id.iv_new_post_image);
 
-        ivPostImage.setOnClickListener(v -> Toast.makeText(this, "Camera logic coming soon!", Toast.LENGTH_SHORT).show());
+        // לחיצה על התמונה פותחת דיאלוג בחירה (כמו בהרשמה)
+        ivPostImage.setOnClickListener(v -> showIconPickerDialog());
 
         btnAiHashtags.setOnClickListener(v -> generateAiTags());
         btnUpload.setOnClickListener(v -> uploadPost());
 
         restoreDraft();
+    }
+
+    // פונקציה להצגת דיאלוג בחירת אייקון
+    private void showIconPickerDialog() {
+        // רשימת שמות האייקונים כפי שסיכמנו
+        final String[] iconNames = {"ic_hobby", "ic_pet", "ic_outdoor", "ic_work", "ic_recommend", "ic_idea", "ic_music", "ic_food", "ic_travel", "ic_group"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("בחר אייקון לפוסט");
+        builder.setItems(iconNames, (dialog, which) -> {
+            // שמירת השם הנבחר
+            selectedIconName = iconNames[which];
+            // עדכון התצוגה הויזואלית
+            int resId = getResources().getIdentifier(selectedIconName, "drawable", getPackageName());
+            ivPostImage.setImageResource(resId);
+        });
+        builder.show();
     }
 
     private void generateAiTags() {
@@ -87,16 +109,13 @@ public class PostCreator extends AppCompatActivity {
         btnAiHashtags.setEnabled(false);
         tvAiTagsDisplay.setText("יוצר תגיות...");
 
-        // 3. Create the AI Prompt
         Content prompt = new Content.Builder()
                 .addText("ניתוח טקסט: תן לי בדיוק 3 מילים רלוונטיות כשאילתות חיפוש או תגיות עבור הטקסט הבא. " +
                         "תחזיר רק את 3 המילים מופרדות בפסיקים, ללא הסברים נוספים. הטקסט: " + details)
                 .build();
 
-        // 4. Send the request
         ListenableFuture<GenerateContentResponse> response = model.generateContent(prompt);
 
-        // 5. Handle the result using Guava Futures
         Futures.addCallback(response, new FutureCallback<GenerateContentResponse>() {
             @Override
             public void onSuccess(GenerateContentResponse result) {
@@ -112,7 +131,6 @@ public class PostCreator extends AppCompatActivity {
                 runOnUiThread(() -> {
                     tvAiTagsDisplay.setText("שגיאה ביצירת תגיות");
                     btnAiHashtags.setEnabled(true);
-                    Toast.makeText(PostCreator.this, "AI Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
                 });
             }
         }, executor);
@@ -128,13 +146,18 @@ public class PostCreator extends AppCompatActivity {
             return;
         }
 
+        // יצירת מפת הנתונים לשמירה ב-Firestore
         Map<String, Object> post = new HashMap<>();
         post.put("headline", headline);
         post.put("details", details);
         post.put("tags", tags);
+        post.put("iconName", selectedIconName); // שמירת שם האייקון בלבד
         post.put("authorUid", auth.getCurrentUser().getUid());
         post.put("timestamp", System.currentTimeMillis());
-        post.put("authorName", getSharedPreferences("prefs", MODE_PRIVATE).getString("username", "Anonymous"));
+
+        // שליפת שם המשתמש מה-Preferences הכלליים של האפליקציה
+        String userName = getSharedPreferences("UserPrefs", MODE_PRIVATE).getString("username", "Anonymous");
+        post.put("authorName", userName);
 
         db.collection("posts").add(post)
                 .addOnSuccessListener(documentReference -> {
@@ -142,24 +165,32 @@ public class PostCreator extends AppCompatActivity {
                     clearDraft();
                     finish();
                 })
-                .addOnFailureListener(e -> Toast.makeText(this, "שגיאה: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> Toast.makeText(this, "שגיאה בפרסום", Toast.LENGTH_SHORT).show());
     }
 
+    // שמירת טיוטה מקומית
     private void saveDraft() {
         sp.edit()
                 .putString("headline", etHeadline.getText().toString())
                 .putString("details", etDetails.getText().toString())
+                .putString("icon", selectedIconName)
                 .putLong("savedAt", System.currentTimeMillis())
                 .apply();
     }
 
+    // שחזור טיוטה עם בדיקת זמן (שעה)
     private void restoreDraft() {
         long savedTime = sp.getLong("savedAt", 0);
         if (System.currentTimeMillis() - savedTime < DRAFT_EXPIRY_MS) {
             etHeadline.setText(sp.getString("headline", ""));
             etDetails.setText(sp.getString("details", ""));
+            selectedIconName = sp.getString("icon", "ic_idea");
+
+            // עדכון האייקון ב-ImageView
+            int resId = getResources().getIdentifier(selectedIconName, "drawable", getPackageName());
+            ivPostImage.setImageResource(resId);
         } else {
-            clearDraft();
+            clearDraft(); // עברה יותר משעה - מנקים
         }
     }
 
@@ -170,6 +201,6 @@ public class PostCreator extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        saveDraft();
+        saveDraft(); // שמירה בכל פעם שהמשתמש יוצא מהמסך
     }
 }

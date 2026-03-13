@@ -39,9 +39,12 @@
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:background="#FFFFFF"
-                android:src="@android:drawable/ic_menu_camera"
+                android:src="@drawable/ic_idea"
                 android:padding="10dp"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="20dp"
+                android:scaleType="fitCenter"
+                android:clickable="true"
+                android:focusable="true" />
 
             <EditText
                 android:id="@+id/et_post_headline"
