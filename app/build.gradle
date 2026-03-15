@@ -15,6 +15,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // מוסיף תמיכה בריבוי ספריות (חשוב כשמשלבים Firebase ו-AI)
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -23,8 +26,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
-        // שימוש ב-Java 11 כפי שמוגדר בפרויקט שלך
+        // --- שורה קריטית: מאפשרת לספריית ה-AI לעבוד ב-Java 11 ---
+        coreLibraryDesugaringEnabled true
+
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
@@ -37,7 +43,7 @@ dependencies {
     implementation libs.activity
     implementation libs.constraintlayout
 
-    // --- Firebase (ניהול גרסאות מרכזי) ---
+    // --- Firebase ---
     implementation platform("com.google.firebase:firebase-bom:33.5.0")
     implementation "com.google.firebase:firebase-analytics"
     implementation "com.google.firebase:firebase-auth"
@@ -45,18 +51,20 @@ dependencies {
     implementation "com.google.firebase:firebase-storage"
 
     // --- Google AI (Gemini) SDK ---
-    // שימוש בספרייה שמתאימה ל-API Key שהוצאת ב-AI Studio
     implementation 'com.google.ai.client.generativeai:generativeai:0.9.0'
 
-    // --- Utilities ---
-    // נדרש עבור עבודה עם "הבטחות" (ListenableFuture) ב-Java כדי שהאפליקציה לא תיתקע
+    // --- תיקוני תאימות ל-Java (מנוע ה-AI דורש את אלו) ---
     implementation "com.google.guava:guava:31.1-android"
+    implementation "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava"
 
-    // Glide - ספרייה לניהול והצגת תמונות/אייקונים
+    // ספריית העזר שמאפשרת את ה-Desugaring שהגדרנו למעלה
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+
+    // Glide
     implementation 'com.github.bumptech.glide:glide:4.16.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
 
-    // --- Testing ---
+    // Testing
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core

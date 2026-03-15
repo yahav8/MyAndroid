@@ -58,11 +58,11 @@ public class PostCreator extends AppCompatActivity {
         sp = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
 
         // --- כאן הכנס את ה-API KEY שלך ששמרת מקודם ---
-        String myApiKey = "AIzaSyDs0UZFqljp5sWUE40xsc9A5LPi6MNZxEU";
+        String myApiKey = "AIzaSyB7XoeCIX4gdMuvp59EEVL6VbRMeCQag1s";
 
         // הגדרת המודל בצורה פשוטה
         // השורה המתוקנת - שימוש בגרסה המדויקת והיציבה
-        GenerativeModel gm = new GenerativeModel("gemini-pro", myApiKey);
+        GenerativeModel gm = new GenerativeModel("gemini-1.5-flash", myApiKey);
         model = GenerativeModelFutures.from(gm);
 
         etHeadline = findViewById(R.id.et_post_headline);
