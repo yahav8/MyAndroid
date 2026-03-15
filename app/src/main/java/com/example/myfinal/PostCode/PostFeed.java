@@ -1,13 +1,8 @@
 package com.example.myfinal.PostCode;
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import com.example.myfinal.R;
 
 public class PostFeed extends AppCompatActivity {
@@ -15,12 +10,10 @@ public class PostFeed extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        // השורה הזו מחברת את ה-Java ל-XML
         setContentView(R.layout.activity_post_feed);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        // הודעה קטנה כדי שנדע שהכל עובד
+        Toast.makeText(this, "התחברת בהצלחה לפיד!", Toast.LENGTH_SHORT).show();
     }
 }
