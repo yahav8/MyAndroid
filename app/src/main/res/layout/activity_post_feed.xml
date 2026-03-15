@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#D1E9FF"
-    android:layoutDirection="rtl">
+    android:layoutDirection="rtl"
+    tools:context=".PostCode.PostFeed">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="70dp"
         android:background="@color/base1"
-        app:navigationIcon="@android:drawable/ic_menu_sort_by_size">
+        app:contentInsetStart="0dp"
+        app:contentInsetEnd="0dp"
+        android:layoutDirection="ltr">
 
         <TextView
+            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:text="פיד"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_gravity="center" />
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
@@ -42,12 +47,14 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:id="@+id/etSearch"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     android:background="#FFFFFF"
                     android:hint="חיפוש..."
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:inputType="text" />
             </LinearLayout>
 
             <LinearLayout

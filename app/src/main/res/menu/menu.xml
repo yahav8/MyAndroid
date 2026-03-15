@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menuitemE"
-        android:title="Exit"
+        android:title="יציאה"
         android:orderInCategory="200"
         app:showAsAction="never"
 

@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission
@@ -36,6 +34,7 @@
 
         <activity android:name=".PostCode.PostFeed" android:exported="false" />
         <activity android:name=".PostCode.PostCreator" android:exported="false" />
+
         <activity android:name=".Start.AvatarPicker" android:exported="false" />
         <activity android:name=".Start.ForgotPassword" android:exported="false" />
         <activity android:name=".PreferredSettingsP" android:exported="false" />
