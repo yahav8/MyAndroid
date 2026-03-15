@@ -13,16 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myfinal.R;
+import com.google.ai.client.generativeai.GenerativeModel; // הספרייה שמתאימה ל-API Key
+import com.google.ai.client.generativeai.java.GenerativeModelFutures;
+import com.google.ai.client.generativeai.type.Content;
+import com.google.ai.client.generativeai.type.GenerateContentResponse;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.vertexai.FirebaseVertexAI;
-import com.google.firebase.vertexai.GenerativeModel;
-import com.google.firebase.vertexai.java.GenerativeModelFutures;
-import com.google.firebase.vertexai.type.Content;
-import com.google.firebase.vertexai.type.GenerateContentResponse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,15 +39,13 @@ public class PostCreator extends AppCompatActivity {
     private FirebaseAuth auth;
     private SharedPreferences sp;
 
-    // שם האייקון הנבחר - ברירת מחדל היא נורה
     private String selectedIconName = "ic_idea";
 
-    // משתני AI
+    // משתני AI - שימוש בגרסה הפשוטה של Google AI
     private GenerativeModelFutures model;
     private final Executor executor = Executors.newSingleThreadExecutor();
 
     private static final String PREF_NAME = "PostDraft";
-    // שינוי לשעה אחת (60 דקות * 60 שניות * 1000 מילישניות)
     private static final long DRAFT_EXPIRY_MS = 60 * 60 * 1000;
 
     @Override
@@ -56,16 +53,17 @@ public class PostCreator extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_creator);
 
-        // אתחול Firebase ו-SharedPreferences
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         sp = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
 
-        // הגדרת מודל ה-AI (Gemini)
-        GenerativeModel gm = FirebaseVertexAI.getInstance().generativeModel("gemini-1.5-flash");
+        // --- כאן הכנס את ה-API KEY שלך ששמרת מקודם ---
+        String myApiKey = "AIzaSyDs0UZFqljp5sWUE40xsc9A5LPi6MNZxEU";
+
+        // הגדרת המודל בצורה פשוטה
+        GenerativeModel gm = new GenerativeModel("gemini-1.5-flash", myApiKey);
         model = GenerativeModelFutures.from(gm);
 
-        // קישור רכיבי העיצוב (IDs)
         etHeadline = findViewById(R.id.et_post_headline);
         etDetails = findViewById(R.id.et_post_details);
         tvAiTagsDisplay = findViewById(R.id.tv_ai_tags_display);
@@ -73,32 +71,14 @@ public class PostCreator extends AppCompatActivity {
         btnAiHashtags = findViewById(R.id.btn_ai_hashtags);
         ivPostImage = findViewById(R.id.iv_new_post_image);
 
-        // לחיצה על התמונה פותחת דיאלוג בחירה (כמו בהרשמה)
         ivPostImage.setOnClickListener(v -> showIconPickerDialog());
-
         btnAiHashtags.setOnClickListener(v -> generateAiTags());
         btnUpload.setOnClickListener(v -> uploadPost());
 
         restoreDraft();
     }
 
-    // פונקציה להצגת דיאלוג בחירת אייקון
-    private void showIconPickerDialog() {
-        // רשימת שמות האייקונים כפי שסיכמנו
-        final String[] iconNames = {"ic_hobby", "ic_pet", "ic_outdoor", "ic_work", "ic_recommend", "ic_idea", "ic_music", "ic_food", "ic_travel", "ic_group"};
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("בחר אייקון לפוסט");
-        builder.setItems(iconNames, (dialog, which) -> {
-            // שמירת השם הנבחר
-            selectedIconName = iconNames[which];
-            // עדכון התצוגה הויזואלית
-            int resId = getResources().getIdentifier(selectedIconName, "drawable", getPackageName());
-            ivPostImage.setImageResource(resId);
-        });
-        builder.show();
-    }
-
+    // הפונקציה שיוצרת את התגיות באמצעות ה-AI
     private void generateAiTags() {
         String details = etDetails.getText().toString().trim();
         if (details.isEmpty()) {
@@ -109,17 +89,19 @@ public class PostCreator extends AppCompatActivity {
         btnAiHashtags.setEnabled(false);
         tvAiTagsDisplay.setText("יוצר תגיות...");
 
+        // יצירת הבקשה ל-AI (ה-Prompt)
         Content prompt = new Content.Builder()
-                .addText("ניתוח טקסט: תן לי בדיוק 3 מילים רלוונטיות כשאילתות חיפוש או תגיות עבור הטקסט הבא. " +
-                        "תחזיר רק את 3 המילים מופרדות בפסיקים, ללא הסברים נוספים. הטקסט: " + details)
+                .addText("נתח את הטקסט הבא ותן לי רק 3 מילים שמתאימות כתגיות, מופרדות בפסיקים: " + details)
                 .build();
 
+        // שליחה לגוגל
         ListenableFuture<GenerateContentResponse> response = model.generateContent(prompt);
 
+        // קבלת התשובה
         Futures.addCallback(response, new FutureCallback<GenerateContentResponse>() {
             @Override
             public void onSuccess(GenerateContentResponse result) {
-                String resultText = result.getText();
+                String resultText = result.getText(); // כאן מתקבלות 3 המילים
                 runOnUiThread(() -> {
                     tvAiTagsDisplay.setText(resultText);
                     btnAiHashtags.setEnabled(true);
@@ -136,6 +118,19 @@ public class PostCreator extends AppCompatActivity {
         }, executor);
     }
 
+    // שאר הפונקציות (uploadPost, showIconPickerDialog וכו') נשארות בדיוק אותו דבר כפי ששלחת לי
+    private void showIconPickerDialog() {
+        final String[] iconNames = {"ic_hobby", "ic_pet", "ic_outdoor", "ic_work", "ic_recommend", "ic_idea", "ic_music", "ic_food", "ic_travel", "ic_group"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("בחר אייקון לפוסט");
+        builder.setItems(iconNames, (dialog, which) -> {
+            selectedIconName = iconNames[which];
+            int resId = getResources().getIdentifier(selectedIconName, "drawable", getPackageName());
+            ivPostImage.setImageResource(resId);
+        });
+        builder.show();
+    }
+
     private void uploadPost() {
         String headline = etHeadline.getText().toString().trim();
         String details = etDetails.getText().toString().trim();
@@ -146,16 +141,14 @@ public class PostCreator extends AppCompatActivity {
             return;
         }
 
-        // יצירת מפת הנתונים לשמירה ב-Firestore
         Map<String, Object> post = new HashMap<>();
         post.put("headline", headline);
         post.put("details", details);
         post.put("tags", tags);
-        post.put("iconName", selectedIconName); // שמירת שם האייקון בלבד
+        post.put("iconName", selectedIconName);
         post.put("authorUid", auth.getCurrentUser().getUid());
         post.put("timestamp", System.currentTimeMillis());
 
-        // שליפת שם המשתמש מה-Preferences הכלליים של האפליקציה
         String userName = getSharedPreferences("UserPrefs", MODE_PRIVATE).getString("username", "Anonymous");
         post.put("authorName", userName);
 
@@ -168,7 +161,6 @@ public class PostCreator extends AppCompatActivity {
                 .addOnFailureListener(e -> Toast.makeText(this, "שגיאה בפרסום", Toast.LENGTH_SHORT).show());
     }
 
-    // שמירת טיוטה מקומית
     private void saveDraft() {
         sp.edit()
                 .putString("headline", etHeadline.getText().toString())
@@ -178,19 +170,16 @@ public class PostCreator extends AppCompatActivity {
                 .apply();
     }
 
-    // שחזור טיוטה עם בדיקת זמן (שעה)
     private void restoreDraft() {
         long savedTime = sp.getLong("savedAt", 0);
         if (System.currentTimeMillis() - savedTime < DRAFT_EXPIRY_MS) {
             etHeadline.setText(sp.getString("headline", ""));
             etDetails.setText(sp.getString("details", ""));
             selectedIconName = sp.getString("icon", "ic_idea");
-
-            // עדכון האייקון ב-ImageView
             int resId = getResources().getIdentifier(selectedIconName, "drawable", getPackageName());
             ivPostImage.setImageResource(resId);
         } else {
-            clearDraft(); // עברה יותר משעה - מנקים
+            clearDraft();
         }
     }
 
@@ -201,6 +190,6 @@ public class PostCreator extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        saveDraft(); // שמירה בכל פעם שהמשתמש יוצא מהמסך
+        saveDraft();
     }
 }
