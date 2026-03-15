@@ -4,16 +4,17 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.myfinal.Profile; // ייבוא של מסך הפרופיל
 import com.example.myfinal.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -21,30 +22,34 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 public class SignUp extends AppCompatActivity {
 
-    private EditText nameInput, idInput, emailInput, phoneInput, rankInput, courseInput, releaseDateInput, passwordInput;
-    private Button registerButton, btnGoToLogIn;
-    private ImageView uploadImagePlaceholder;
-    private Toolbar toolbar;
+    // רכיבי ממשק המשתמש
+    private EditText etSignUpName;
+    private EditText etSignUpId;
+    private EditText etSignUpEmail;
+    private EditText etSignUpPhone;
+    private EditText etSignUpRank;
+    private EditText etSignUpCourse;
+    private EditText etSignUpDate;
+    private EditText etSignUpPassword;
+    private Button btnRegister;
+    private Button btnGoToLogIn;
+    private ImageView ivAvatarPlaceholder;
 
+    // רכיבי Firebase
     private FirebaseAuth auth;
     private FirebaseFirestore db;
-
-    // Track chosen avatar name (default p1)
     private String selectedAvatar = "p1";
 
-    // Launcher for the Avatar Selection
     private final ActivityResultLauncher<Intent> avatarPickerLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     selectedAvatar = result.getData().getStringExtra("selected_avatar");
-                    // Change the placeholder to the chosen image
                     int resId = getResources().getIdentifier(selectedAvatar, "drawable", getPackageName());
-                    uploadImagePlaceholder.setImageResource(resId);
+                    ivAvatarPlaceholder.setImageResource(resId);
                 }
             }
     );
@@ -57,168 +62,94 @@ public class SignUp extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        nameInput = findViewById(R.id.nameInput);
-        idInput = findViewById(R.id.idInput);
-        emailInput = findViewById(R.id.emailInput);
-        phoneInput = findViewById(R.id.phoneInput);
-        rankInput = findViewById(R.id.rankInput);
-        courseInput = findViewById(R.id.courseInput);
-        releaseDateInput = findViewById(R.id.releaseDateInput);
-        passwordInput = findViewById(R.id.passwordInput);
-        registerButton = findViewById(R.id.registerButton);
+        // קישור IDs לפי הסטנדרט החדש
+        etSignUpName = findViewById(R.id.nameInput);
+        etSignUpId = findViewById(R.id.idInput);
+        etSignUpEmail = findViewById(R.id.emailInput);
+        etSignUpPhone = findViewById(R.id.phoneInput);
+        etSignUpRank = findViewById(R.id.rankInput);
+        etSignUpCourse = findViewById(R.id.courseInput);
+        etSignUpDate = findViewById(R.id.releaseDateInput);
+        etSignUpPassword = findViewById(R.id.passwordInput);
+        btnRegister = findViewById(R.id.registerButton);
         btnGoToLogIn = findViewById(R.id.btnGoToLogIn);
-        uploadImagePlaceholder = findViewById(R.id.uploadImagePlaceholder);
-
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        ivAvatarPlaceholder = findViewById(R.id.uploadImagePlaceholder);
 
         setupRankPicker();
         setupDatePicker();
 
-        // New Click Listener to open the Avatar Picker
-        uploadImagePlaceholder.setOnClickListener(v -> {
+        ivAvatarPlaceholder.setOnClickListener(v -> {
             Intent intent = new Intent(SignUp.this, AvatarPicker.class);
             avatarPickerLauncher.launch(intent);
         });
 
-        registerButton.setOnClickListener(v -> performSignUp());
+        btnRegister.setOnClickListener(v -> performSignUp());
+
         btnGoToLogIn.setOnClickListener(v -> finish());
     }
 
     private void performSignUp() {
-        String name = nameInput.getText().toString().trim();
-        String id = idInput.getText().toString().trim();
-        String email = emailInput.getText().toString().trim();
-        String phone = phoneInput.getText().toString().trim();
-        String rank = rankInput.getText().toString().trim();
-        String course = courseInput.getText().toString().trim();
-        String date = releaseDateInput.getText().toString().trim();
-        String password = passwordInput.getText().toString().trim();
+        String email = etSignUpEmail.getText().toString().trim();
+        String password = etSignUpPassword.getText().toString().trim();
 
-        if (name.isEmpty() || id.isEmpty() || email.isEmpty() || phone.isEmpty() ||
-                rank.isEmpty() || course.isEmpty() || date.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "נא למלא את כל השדות", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (!Pattern.compile("^[a-zA-Zא-ת]{2,}\\s[a-zA-Zא-ת]{2,}$").matcher(name).matches()) {
-            nameInput.setError("נא להזין שם פרטי ושם משפחה (לפחות 2 תווים לכל אחד)");
-            return;
-        }
-
-        if (id.length() != 9 || !id.matches("\\d+")) {
-            idInput.setError("תעודת זהות חייבת להכיל 9 ספרות");
-            return;
-        }
-
+        // בדיקת תקינות מייל בסיסית ופשוטה
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailInput.setError("כתובת אימייל לא תקינה");
+            etSignUpEmail.setError("כתובת אימייל לא תקינה");
             return;
         }
 
-        if (phone.length() != 10 || !phone.matches("\\d+")) {
-            phoneInput.setError("מספר טלפון חייב להכיל בדיוק 10 ספרות");
+        if (password.length() < 6) {
+            etSignUpPassword.setError("סיסמה חייבת להכיל לפחות 6 תווים");
             return;
         }
 
-        String passwordRegex = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{6,}$";
-        if (!Pattern.compile(passwordRegex).matcher(password).matches()) {
-            passwordInput.setError("סיסמה חייבת להכיל 6 תווים, אות, מספר וסימן מיוחד");
-            return;
-        }
-
-        Toast.makeText(this, "מתחיל תהליך הרשמה...", Toast.LENGTH_SHORT).show();
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        saveUserToFirestore(name, email);
+                        saveUserToFirestore();
                     } else {
                         Toast.makeText(this, "שגיאה: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
     }
 
-    private void saveUserToFirestore(String name, String email) {
+    private void saveUserToFirestore() {
         String uid = auth.getCurrentUser().getUid();
-
-        getSharedPreferences("prefs", MODE_PRIVATE)
-                .edit()
-                .putString("username", name)
-                .putInt("stars", 0)
-                .putInt("trophies", 0)
-                .apply();
-
         Map<String, Object> user = new HashMap<>();
-        user.put("name", name);
-        user.put("email", email);
-        user.put("id", idInput.getText().toString().trim());
-        user.put("phonNum", phoneInput.getText().toString().trim());
-        user.put("rank", rankInput.getText().toString().trim());
-        user.put("courseNum", courseInput.getText().toString().trim());
-        user.put("releaseDate", releaseDateInput.getText().toString().trim());
-        user.put("stars", 0);
-        user.put("trophies", 0);
-        user.put("profileImageUrl", selectedAvatar); // Saves "p1", "p2", etc.
+
+        user.put("name", etSignUpName.getText().toString().trim());
+        user.put("email", etSignUpEmail.getText().toString().trim());
+        user.put("id", etSignUpId.getText().toString().trim());
+        user.put("phonNum", etSignUpPhone.getText().toString().trim());
+        user.put("rank", etSignUpRank.getText().toString().trim());
+        user.put("courseNum", etSignUpCourse.getText().toString().trim());
+        user.put("releaseDate", etSignUpDate.getText().toString().trim());
+        user.put("profileImageUrl", selectedAvatar);
 
         db.collection("users").document(uid).set(user)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(SignUp.this, "הנתונים נשמרו בהצלחה!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(SignUp.this, OpenPage.class);
+                    // מעבר למסך פרופיל בסיום ההרשמה
+                    Intent intent = new Intent(SignUp.this, Profile.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "שגיאה בשמירת נתונים: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 });
     }
 
     private void setupDatePicker() {
-        releaseDateInput.setOnClickListener(v -> {
+        etSignUpDate.setOnClickListener(v -> {
             final Calendar c = Calendar.getInstance();
             new DatePickerDialog(this, (view, year, month, day) -> {
-                releaseDateInput.setText(day + "/" + (month + 1) + "/" + year);
+                etSignUpDate.setText(day + "/" + (month + 1) + "/" + year);
             }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
         });
     }
 
     private void setupRankPicker() {
-        final String[] ranks = {"טוראי", "רב טוראי", "סמל", "סמל ראשון", "סגן משנה", "סגן", "סרן", "רב סרן", "סגן אלוף", "אלוף משנה", "תת אלוף", "אלוף", "רב אלוף"};
-        rankInput.setOnClickListener(v -> {
+        final String[] ranks = {"טוראי", "רב טוראי", "סמל", "סמל ראשון", "קצין"};
+        etSignUpRank.setOnClickListener(v -> {
             new AlertDialog.Builder(this).setTitle("בחר דרגה")
-                    .setItems(ranks, (dialog, which) -> rankInput.setText(ranks[which])).show();
+                    .setItems(ranks, (dialog, which) -> etSignUpRank.setText(ranks[which])).show();
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menuitemE) {
-            new AlertDialog.Builder(this)
-                    .setMessage("אתה בטוח שאתה רוצה לצאת מהאפליקציה?")
-                    .setPositiveButton("כן", (dialog, which) -> {
-                        finishAffinity();
-                        System.exit(0);
-                    })
-                    .setNegativeButton("לא", (dialog, which) -> dialog.dismiss())
-                    .show();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
     }
 }

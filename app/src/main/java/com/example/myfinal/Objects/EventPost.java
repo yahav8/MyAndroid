@@ -7,17 +7,45 @@ public class EventPost extends Post {
     private int maxParticipants;
     private int registeredUsers;
 
+    // בנאי ריק חובה עבור Firebase
     public EventPost() {
         super();
     }
 
-    public EventPost(String appTextSize, String fontType, boolean isDarkMode, String textColor, int textSize,
-                     String headline, String details, String tags, String authorUid, String authorName, long timestamp,
-                     String eventDate, String eventTime, String location, int maxParticipants, int registeredUsers) {
+    // בנאי מלא
+    public EventPost(String appTextSize,
+                     String fontType,
+                     boolean isDarkMode,
+                     String textColor,
+                     int textSize,
+                     String headline,
+                     String details,
+                     String tags,
+                     String authorUid,
+                     String authorName,
+                     String iconName, // הוספנו את המשתנה הזה כאן
+                     long timestamp,
+                     String eventDate,
+                     String eventTime,
+                     String location,
+                     int maxParticipants,
+                     int registeredUsers) {
 
-        // מעבירים את הכל ל-Post
-        super(appTextSize, fontType, isDarkMode, textColor, textSize, headline, details, tags, authorUid, authorName, timestamp);
+        // כאן התיקון הקריטי - הוספתי את iconName ברשימה שנשלחת לאבא (Post)
+        super(appTextSize,
+                fontType,
+                isDarkMode,
+                textColor,
+                textSize,
+                headline,
+                details,
+                tags,
+                authorUid,
+                authorName,
+                iconName, // זה השדה שהיה חסר וגרם לשגיאה
+                timestamp);
 
+        // אתחול המשתנים הייחודיים לאירוע
         this.eventDate = eventDate;
         this.eventTime = eventTime;
         this.location = location;
@@ -26,16 +54,45 @@ public class EventPost extends Post {
     }
 
     // Getters and Setters
-    public String getEventDate() { return eventDate; }
-    public void setEventDate(String eventDate) { this.eventDate = eventDate; }
-    public String getEventTime() { return eventTime; }
-    public void setEventTime(String eventTime) { this.eventTime = eventTime; }
-    public String getLocation() { return location; }
-    public void setLocation(String location) { this.location = location; }
-    public int getMaxParticipants() { return maxParticipants; }
-    public void setMaxParticipants(int maxParticipants) { this.maxParticipants = maxParticipants; }
-    public int getRegisteredUsers() { return registeredUsers; }
-    public void setRegisteredUsers(int registeredUsers) { this.registeredUsers = registeredUsers; }
+    public String getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    public String getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(String eventTime) {
+        this.eventTime = eventTime;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public int getMaxParticipants() {
+        return maxParticipants;
+    }
+
+    public void setMaxParticipants(int maxParticipants) {
+        this.maxParticipants = maxParticipants;
+    }
+
+    public int getRegisteredUsers() {
+        return registeredUsers;
+    }
+
+    public void setRegisteredUsers(int registeredUsers) {
+        this.registeredUsers = registeredUsers;
+    }
 
     @Override
     public String toString() {
