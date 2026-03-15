@@ -7,7 +7,7 @@
     <color name="base3">#8DBFF7</color>
     <color name="base4">#D3E5FF</color>
     <color name="base5">#F0F8FF</color>
-
+    <color name="primary_light">#D7E5F0</color>
     <color name="highlight_bg">#B8D9FF</color>
 
     <color name="text_on_dark">@android:color/white</color>

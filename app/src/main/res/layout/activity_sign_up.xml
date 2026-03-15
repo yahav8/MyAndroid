@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/base5"
     tools:context=".Start.SignUp">
 
     <androidx.appcompat.widget.Toolbar
@@ -12,11 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@color/base1"
-        android:layout_marginBottom="16dp"
-        app:navigationIcon="@android:drawable/ic_menu_revert"
-        app:contentInsetStart="0dp"
-        app:contentInsetEnd="0dp"
-        android:layoutDirection="ltr" />
+        app:navigationIcon="@android:drawable/ic_menu_revert" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -27,64 +24,64 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layoutDirection="rtl"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="20dp"
+            android:layoutDirection="rtl">
 
             <TextView
                 android:id="@+id/titleText"
-                style="@style/TextAppearance.MyApp.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="24dp"
-                android:text="הרשמה"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:layout_marginBottom="20dp"
+                android:text="הרשמה למערכת"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_dark" />
 
-            <EditText android:id="@+id/nameInput" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginTop="8dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="שם מלא" android:gravity="right|center_vertical" android:padding="12dp" android:textSize="14sp" />
-            <EditText android:id="@+id/idInput" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="תעודת זהות" android:inputType="number" android:gravity="right|center_vertical" android:padding="12dp" android:textSize="14sp" />
-            <EditText android:id="@+id/emailInput" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="אימייל" android:inputType="textEmailAddress" android:gravity="right|center_vertical" android:padding="12dp" android:textSize="14sp" />
-            <EditText android:id="@+id/phoneInput" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="מספר טלפון" android:inputType="number" android:gravity="right|center_vertical" android:padding="12dp" android:textSize="14sp" />
-            <EditText android:id="@+id/rankInput" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="דרגה" android:gravity="right|center_vertical" android:padding="12dp" android:textSize="14sp" android:focusable="false" android:clickable="true" android:cursorVisible="false" />
-            <EditText android:id="@+id/courseInput" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="קורס" android:gravity="right|center_vertical" android:padding="12dp" android:textSize="14sp" />
-            <EditText android:id="@+id/releaseDateInput" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:focusable="false" android:clickable="true" android:cursorVisible="false" android:hint="תאריך שחרור" android:gravity="right|center_vertical" android:padding="12dp" android:textSize="14sp" />
-            <EditText android:id="@+id/passwordInput" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginBottom="16dp" android:background="@android:drawable/edit_text" android:hint="סיסמה" android:inputType="textPassword" android:gravity="right|center_vertical" android:padding="12dp" android:textSize="14sp" />
+            <EditText android:id="@+id/nameInput" android:layout_width="match_parent" android:layout_height="55dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="שם מלא" android:padding="12dp" android:textSize="16sp" android:inputType="textPersonName" android:gravity="right|center_vertical"/>
+            <EditText android:id="@+id/idInput" android:layout_width="match_parent" android:layout_height="55dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="תעודת זהות" android:inputType="number" android:padding="12dp" android:textSize="16sp" android:gravity="right|center_vertical"/>
+            <EditText android:id="@+id/emailInput" android:layout_width="match_parent" android:layout_height="55dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="אימייל" android:inputType="textEmailAddress" android:padding="12dp" android:textSize="16sp" android:gravity="right|center_vertical"/>
+            <EditText android:id="@+id/phoneInput" android:layout_width="match_parent" android:layout_height="55dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="מספר טלפון" android:inputType="phone" android:padding="12dp" android:textSize="16sp" android:gravity="right|center_vertical"/>
+            <EditText android:id="@+id/rankInput" android:layout_width="match_parent" android:layout_height="55dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="בחר דרגה" android:padding="12dp" android:textSize="16sp" android:focusable="false" android:clickable="true" android:gravity="right|center_vertical"/>
+            <EditText android:id="@+id/courseInput" android:layout_width="match_parent" android:layout_height="55dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:hint="מספר קורס" android:padding="12dp" android:textSize="16sp" android:gravity="right|center_vertical"/>
+            <EditText android:id="@+id/releaseDateInput" android:layout_width="match_parent" android:layout_height="55dp" android:layout_marginBottom="10dp" android:background="@android:drawable/edit_text" android:focusable="false" android:clickable="true" android:hint="תאריך שחרור" android:padding="12dp" android:textSize="16sp" android:gravity="right|center_vertical"/>
+            <EditText android:id="@+id/passwordInput" android:layout_width="match_parent" android:layout_height="55dp" android:layout_marginBottom="20dp" android:background="@android:drawable/edit_text" android:hint="סיסמה (לפחות 6 תווים)" android:inputType="textPassword" android:padding="12dp" android:textSize="16sp" android:gravity="right|center_vertical"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp"
+                android:background="@color/base3"
+                android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/uploadText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:text="אנא בחר אוואטר אישי"
-                    android:textSize="14sp" />
+                    android:layout_marginLeft="15dp"
+                    android:text="בחר אוואטר אישי:"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/uploadImagePlaceholder"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="#DDDDDD"
-                    android:padding="4dp"
-                    android:src="@drawable/p1" />
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/p1"
+                    android:scaleType="centerCrop"
+                    android:padding="2dp"
+                    android:background="@color/primary_light" />
             </LinearLayout>
 
-            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:minHeight="40dp" />
-
-            <Button android:id="@+id/registerButton" style="@style/Widget.MyApp.Button" android:layout_width="match_parent" android:layout_height="50dp" android:layout_marginBottom="14dp" android:text="הרשמה" android:textColor="@android:color/white" android:textSize="16sp" />
-            <Button android:id="@+id/btnGoToLogIn" android:layout_width="wrap_content" android:layout_height="48dp" android:layout_gravity="center_horizontal" android:layout_marginBottom="20dp" android:backgroundTint="@android:color/transparent" android:text="יש לכם משתמש? התחברו" android:textColor="@android:color/holo_blue_dark" android:textSize="12sp" />
+            <Button android:id="@+id/registerButton" android:layout_width="match_parent" android:layout_height="55dp" android:text="סיום הרשמה" android:textSize="18sp" android:backgroundTint="@color/base2" android:textColor="@android:color/white" android:layout_marginBottom="10dp"/>
+            <Button android:id="@+id/btnGoToLogIn" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="כבר רשום? להתחברות" android:backgroundTint="@android:color/transparent" android:textColor="@android:color/holo_blue_dark" />
         </LinearLayout>
     </ScrollView>
 
-    <FrameLayout android:layout_width="match_parent" android:layout_height="70dp">
-        <View android:id="@+id/bottomSeparator" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/base1" />
-        <TextView android:id="@+id/tvFooter" android:layout_width="match_parent" android:layout_height="38dp" android:layout_gravity="center" android:background="#2B3149" android:gravity="center" android:text="© מערך הבקרים 2026" android:textColor="@android:color/white" android:textSize="12sp" />
-        <ImageView android:id="@+id/ivWifi" android:layout_width="28dp" android:layout_height="28dp" android:layout_gravity="bottom|right" android:layout_marginEnd="16dp" android:layout_marginBottom="20dp" android:src="@drawable/wifi" app:tint="@android:color/white" />
+    <FrameLayout android:layout_width="match_parent" android:layout_height="60dp">
+        <View android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/base1" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="center" android:gravity="center" android:text="© מערך הבקרים 2026" android:textColor="@android:color/white" />
     </FrameLayout>
-
 </LinearLayout>

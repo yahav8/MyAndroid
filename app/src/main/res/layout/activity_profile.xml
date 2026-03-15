@@ -17,8 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:background="@color/base1"
-            app:navigationIcon="@android:drawable/ic_menu_revert"
-            android:layoutDirection="ltr" />
+            app:navigationIcon="@android:drawable/ic_menu_revert" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -35,29 +34,29 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp">
+                    android:layout_marginTop="20dp">
 
                     <LinearLayout
                         android:id="@+id/llInfoBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="65dp"
+                        android:layout_marginTop="60dp"
                         android:background="@color/base3"
                         android:orientation="vertical"
-                        android:paddingTop="75dp"
-                        android:paddingBottom="20dp"
-                        android:paddingHorizontal="16dp"
-                        android:gravity="center_horizontal">
+                        android:paddingTop="70dp"
+                        android:paddingBottom="25dp"
+                        android:paddingHorizontal="20dp"
+                        android:gravity="center">
 
                         <TextView
                             android:id="@+id/tvProfName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="טוען שם..."
-                            android:textSize="22sp"
+                            android:textSize="28sp"
                             android:textStyle="bold"
                             android:textColor="@color/primary_dark"
-                            android:layout_marginBottom="15dp" />
+                            android:layout_marginBottom="25dp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -70,32 +69,17 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="vertical"
-                                android:gravity="end">
+                                android:gravity="right"
+                                android:paddingRight="10dp">
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="קורס:"
-                                    android:textStyle="bold"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="קורס:" android:textStyle="bold" android:textSize="18sp"/>
+                                <TextView android:id="@+id/tvProfCourse" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textSize="18sp" android:layout_marginBottom="12dp"/>
 
-                                <TextView
-                                    android:id="@+id/tvProfCourse"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="---"
-                                    android:layout_marginBottom="8dp"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="דרגה:" android:textStyle="bold" android:textSize="18sp"/>
+                                <TextView android:id="@+id/tvProfRank" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textSize="18sp" android:layout_marginBottom="12dp"/>
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="דרגה:"
-                                    android:textStyle="bold"/>
-
-                                <TextView
-                                    android:id="@+id/tvProfRank"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="---" />
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="שחרור:" android:textStyle="bold" android:textSize="18sp"/>
+                                <TextView android:id="@+id/tvProfDate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textSize="18sp"/>
                             </LinearLayout>
 
                             <LinearLayout
@@ -103,67 +87,25 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="vertical"
-                                android:gravity="end">
+                                android:gravity="right"
+                                android:paddingRight="10dp">
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="ת.ז:"
-                                    android:textStyle="bold"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ת.ז:" android:textStyle="bold" android:textSize="18sp"/>
+                                <TextView android:id="@+id/tvProfId" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textSize="18sp" android:layout_marginBottom="12dp"/>
 
-                                <TextView
-                                    android:id="@+id/tvProfId"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="---"
-                                    android:layout_marginBottom="8dp"/>
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="טלפון:" android:textStyle="bold" android:textSize="18sp"/>
+                                <TextView android:id="@+id/tvProfPhone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textSize="18sp" android:layout_marginBottom="12dp"/>
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="טלפון:"
-                                    android:textStyle="bold"/>
-
-                                <TextView
-                                    android:id="@+id/tvProfPhone"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="---"
-                                    android:layout_marginBottom="8dp"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="מייל:"
-                                    android:textStyle="bold"/>
-
-                                <TextView
-                                    android:id="@+id/tvProfEmail"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="---"
-                                    android:layout_marginBottom="8dp"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="שחרור:"
-                                    android:textStyle="bold"/>
-
-                                <TextView
-                                    android:id="@+id/tvProfDate"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="---" />
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="מייל:" android:textStyle="bold" android:textSize="18sp"/>
+                                <TextView android:id="@+id/tvProfEmail" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textSize="16sp"/>
                             </LinearLayout>
-
                         </LinearLayout>
                     </LinearLayout>
 
                     <ImageView
                         android:id="@+id/ivProfImage"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
                         android:layout_centerHorizontal="true"
                         android:elevation="10dp"
                         android:scaleType="centerCrop"
@@ -175,10 +117,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="הפוסטים שלי"
-                    android:textSize="20sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="30dp"
                     android:textColor="@color/primary_dark"
                     android:gravity="right"/>
 
@@ -187,22 +128,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
-
             </LinearLayout>
         </ScrollView>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="70dp">
-
-            <View
-                android:id="@+id/vFooterBackground"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/base1" />
-
+            <View android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/base1" />
             <TextView
-                android:id="@+id/tvFooterCopyright"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:text="© מערך הבקרים 2026"
@@ -210,16 +143,6 @@
                 android:background="#2B3149"
                 android:gravity="center"
                 android:layout_gravity="center" />
-
-            <ImageView
-                android:id="@+id/ivWifiIcon"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_gravity="bottom|end"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/wifi"
-                app:tint="@android:color/white"/>
         </FrameLayout>
     </LinearLayout>
 
@@ -241,8 +164,6 @@
             android:layout_height="match_parent"
             android:src="@android:drawable/ic_input_add"
             android:padding="12dp"
-            app:tint="@android:color/white"
-            android:scaleType="fitCenter" />
+            app:tint="@android:color/white" />
     </androidx.cardview.widget.CardView>
-
 </RelativeLayout>

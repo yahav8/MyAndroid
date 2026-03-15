@@ -31,6 +31,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".PostCode.PostFeed" android:exported="false" />
+        <activity android:name=".PostCode.PostCreator" android:exported="false" />
+
         <activity android:name=".Start.AvatarPicker" android:exported="false" />
         <activity android:name=".Start.ForgotPassword" android:exported="false" />
         <activity android:name=".PreferredSettingsP" android:exported="false" />
